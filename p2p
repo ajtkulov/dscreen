@@ -1,0 +1,27 @@
+source=$2
+dest=$3
+pre=$4
+
+o1=$5
+o2=$6
+
+while IFS= read -r line; do
+    read -r num1 num2 <<< "$line"
+
+    n1=$(expr $num1 + $o1)
+    n2=$(expr $num2 + $o2)
+
+    ./pagescreen $source $num1 source$n1
+    ./pagescreen $dest $num2 dest$n2
+
+    pnum1=$(printf "%03d" "$n1")
+    pnum2=$(printf "%03d" "$n2")
+
+    convert +append source$n1.png dest$n2.png "screen-$pnum1-$pnum2-$pre.png"
+
+    echo "screen-$pnum1-$pnum2-$pre.png"
+
+    rm source$n1.png
+    rm dest$n2.png
+
+done < $1

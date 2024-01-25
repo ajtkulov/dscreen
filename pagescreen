@@ -1,0 +1,19 @@
+#!/bin/bash
+
+open -a "Preview" $1
+
+osascript -e 'tell application "Preview" to activate' \
+              -e 'tell application "System Events" to tell process "Preview" to click menu item "Hide Sidebar" of menu "View" of menu bar 1' \
+              -e 'tell application "System Events" to tell process "Preview" to click menu item "Single Page" of menu "View" of menu bar 1' \
+              -e 'tell application "System Events" to tell process "Preview" to click menu item "Zoom to fit" of menu "View" of menu bar 1' \
+              -e 'tell application "System Events" to tell process "Preview" to set position of window 1 to {0, 0}' \
+              -e 'tell application "System Events" to tell process "Preview" to set size of window 1 to {750, 1200}' \
+              -e 'tell application "System Events" to tell process "Preview" to click menu item "Go to Page…" of menu "Go" of menu bar 1' \
+              -e 'delay 0.25' \
+              -e "tell application \"System Events\" to keystroke \"$2\"" \
+              -e 'delay 0.25' \
+              -e 'tell application "System Events" to key code 36' 
+
+sleep 1
+
+screencapture -R 0,32,750,1232 $3.png
