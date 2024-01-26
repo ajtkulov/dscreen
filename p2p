@@ -25,3 +25,7 @@ while IFS= read -r line; do
     rm dest$n2.png
 
 done < $1
+
+
+mogrify -format jpg *.png
+convert *.jpg final.pdf
